@@ -35,6 +35,8 @@ function saveTask(e) {
 
     }
 
+    // Luego de haber creado la funcion getTask() para obtener las tareas en la interfaz, la ejecuto dentro de esta funcion para que se actualize la misma, es decir que cada vez que se escuche el boton se proyectara la tarea en la interfaz y se veran las tareas de forma listada
+    getTask();
     e.preventDefault();
 }
 
@@ -50,11 +52,20 @@ function getTask() {
     // Luego vamos a empezar a recorrer los datos 'tasksLocals' el cual se encontraban en un array
     // Es decir cuando se ejecute este evento, voy a tratar de obtener las tareas almacenadas, si me devuelve algo entonces van a ser tareas que voy a empezar a recorrer
 
-    // 
+    // Vamos a empezar a recorrer el arreglo y vamos a obtener uno a uno los datos
     for(let i = 0; i < tasksUI.length; i++) {
-    // Entonces vamos a empezar a recorrer el arreglo y vamos a obtener uno a uno los datos
-        console.log(tasksUI[i]);
 
+        //Para insertar el titulo de la tarea, el cual viene del indice 0 del array, voy a almacenar la propiedad title del arreglo en una variable para despues insertarlo directamente en el html
+        let title = tasksUI[i].title;
+        // Lo mismo con la descripcion
+        let description = tasksUI[i].description;
+    // Luego lo mostramos en la interfaz agregando html diseñado con javascript
+        tasksView.innerHTML += `<div class="card mb-3">
+            <div class="card-body">
+                <p>${title} - ${description}</p>
+                <a class="btn btn-danger">Delete</a>
+            </div>
+        </div>`
     }
 }
 
