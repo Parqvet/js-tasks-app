@@ -63,10 +63,31 @@ function getTask() {
         tasksView.innerHTML += `<div class="card mb-3">
             <div class="card-body">
                 <p>${title} - ${description}</p>
-                <a class="btn btn-danger">Delete</a>
+                <a class="btn btn-danger" onclick="deleteTask('${title}')">Delete</a>
             </div>
         </div>`
     }
+}
+
+// Esta funcion sera la encargada de poder obtener un titulo, buscarlo y eliminarlo
+// Obtenemos como parametro un titulo
+function deleteTask(title) {
+    // Recorremos nuestra y buscamos si coincide el titulo con nuestra tarea
+    let tasksOff = JSON.parse(localStorage.getItem('tasksLocals'));
+
+    for(let i = 0; i < tasksOff.length; i++) {
+        // Si las tareas en su indice i en su propiedad title es igual al titulo que esta pasando esta funcion
+        if (tasksOff[i].title == title) {
+            // Splice a diferencia de push, se encarga de quitar valores desde el indice del array
+            // Le pasamos dos parametros, el indice y la cantidad que vamos a quitar, en este caso 1
+            tasksOff.splice(i, 1);
+        }
+    }
+    // Cuando empecemos a quitar la tarea, vamos a volver a guardar los datos para mostrarlos por la interfaz
+    // Esto va a almacenar nuevamente las tareas con ese item menos
+    localStorage.setItem('tasksLocals', JSON.stringify(tasksOff));
+    // Luego cuando ya lo ha almacenado se ejecuta nuevamente getTask
+    getTask();
 }
 
 getTask();
